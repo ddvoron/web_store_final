@@ -1,0 +1,62 @@
+.registrationTable {
+    background: rgba(239, 239, 239, 0.51) none repeat scroll 0 0;
+    border-radius: 30px;
+    box-shadow: 0 0 10px #414141;
+    font-family: Cambria;
+    font-size: 18px;
+    margin: 40px auto 0;
+    padding: 0 20px 10px;
+}
+
+.registrationTable td{
+    width: 200px;
+}
+
+.registrationTable td:first-child {
+    width: 160px;
+}
+
+input[type="text"],input[type="password"] {
+    border: 1px solid grey;
+    border-radius: 9px;
+    font-family: Cambria;
+    font-size: 16px;
+    height: 15px;
+    padding: 5px 10px;
+    width: 200px;
+}
+
+.helper {
+    font-size: 14px;
+    text-align: right;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.38);
+}
+
+.button_ok{
+    background-color: rgba(0, 175, 0, 0.73);
+    border-radius: 10px;
+    color: #fff;
+    font-family: Cambria;
+    font-size: 18px;
+    height: 36px;
+}
+
+.button_ok:hover{
+    background-color: rgba(0, 116, 0, 0.78);
+    cursor: pointer;
+}
+
+.butn{
+    text-align: right;
+}
+
+.tableName{
+    background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+    border: 1px solid;
+    border-radius: 15px;
+    color: #fff;
+    height: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+}

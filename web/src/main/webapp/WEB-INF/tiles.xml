@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <definition name="default" template="/WEB-INF/views/layouts/default.jsp">
+        <put-attribute name="head" value=""/>
+        <put-attribute name="title" value=""/>
+        <put-attribute name="menu" value="/WEB-INF/views/common/menu.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
+    </definition>
+
+    <definition name="default_admin" template="/WEB-INF/views/layouts/default_admin.jsp">
+        <put-attribute name="head" value=""/>
+        <put-attribute name="title" value=""/>
+        <put-attribute name="menu" value="/WEB-INF/views/common/menu.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
+    </definition>
+
+    <definition name="home" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head.jsp"/>
+        <put-attribute name="title" value="Главная"/>
+        <put-attribute name="content" value="/WEB-INF/views/main/home.jsp"/>
+    </definition>
+
+    <definition name="reg" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_reg.jsp"/>
+        <put-attribute name="title" value="Регистрация"/>
+        <put-attribute name="content" value="/WEB-INF/views/user/registration.jsp"/>
+    </definition>
+
+    <definition name="log" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_reg.jsp"/>
+        <put-attribute name="title" value="Вход"/>
+        <put-attribute name="content" value="/WEB-INF/views/login/login.jsp"/>
+    </definition>
+
+    <definition name="logout" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_reg.jsp"/>
+        <put-attribute name="title" value="Выход"/>
+        <put-attribute name="content" value="/WEB-INF/views/logout/logout.jsp"/>
+    </definition>
+
+    <definition name="catalog" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_good.jsp"/>
+        <put-attribute name="title" value="Товары"/>
+        <put-attribute name="content" value="/WEB-INF/views/products/product.jsp"/>
+    </definition>
+
+    <definition name="catalog/product" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_description.jsp"/>
+        <put-attribute name="title" value="Описание товара"/>
+        <put-attribute name="content" value="/WEB-INF/views/product/productDescription.jsp"/>
+    </definition>
+
+    <definition name="basket" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_basket.jsp"/>
+        <put-attribute name="title" value="Корзина"/>
+        <put-attribute name="content" value="/WEB-INF/views/products/basket.jsp"/>
+    </definition>
+
+    <definition name="mail" extends="default">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_reg.jsp"/>
+        <put-attribute name="title" value="Корзина"/>
+        <put-attribute name="content" value="/WEB-INF/views/login/mailSender.jsp"/>
+    </definition>
+
+    <definition name="products" extends="default_admin">
+        <put-attribute name="head" value="/WEB-INF/views/common/head_admin.jsp"/>
+        <put-attribute name="title" value="Редактирование товаров"/>
+        <put-attribute name="content" value="/WEB-INF/views/admin/products.jsp"/>
+    </definition>
+
+</tiles-definitions>
