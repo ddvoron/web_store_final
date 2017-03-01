@@ -20,5 +20,7 @@ DataBase connection:
       user - root
       password - 
       
-      
+Вход в приложение: 
+      Login - superman
+      Password - superman
       
