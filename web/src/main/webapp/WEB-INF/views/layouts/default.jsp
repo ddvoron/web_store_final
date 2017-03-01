@@ -13,6 +13,7 @@
 </title>
 </head>
 <body>
+<tiles:insertAttribute name="hidden"/>
 <div id="container">
     <tiles:insertAttribute name="menu"/>
     <tiles:insertAttribute name="content"/>

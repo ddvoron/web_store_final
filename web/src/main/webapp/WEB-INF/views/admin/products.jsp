@@ -57,31 +57,31 @@
 
 </div>
 <div class="megaDominator1">
-    <form id="editGoods" action="<c:url value="/admin/products"/>" method="post">
+    <s:form id="editGoods" modelAttribute="product" action="/web/admin/products" method="post">
         <table class="registrationTable">
-            <tr><td colspan="2"><div class="tableName">Добавление товара</div></td></tr>
+            <tr><td colspan="2"><div class="tableName">Добавление/редактирование товара</div></td></tr>
             <tr>
-                <td><input type="hidden" id="id" name="ID"/></td>
+                <td><s:input type="hidden" id="id" path="idData" name="ID" value="0"/></td>
             </tr>
             <tr>
                 <td><label>Brand</label></td>
-                <td><input type="text" id="brand" name="Brand"/></td>
+                <td><s:input type="text" id="brand" path="Brand" name="Brand"/></td>
             </tr>
             <tr>
                 <td><label>Model</label></td>
-                <td><input type="text" id="model" name="Model"/></td>
+                <td><s:input type="text" id="model" path="Model" name="Model"/></td>
             </tr>
             <tr>
                 <td><label>Price</label></td>
-                <td><input type="text" id="price" name="Price"/></td>
+                <td><s:input type="text" id="price" path="Price" name="Price"/></td>
             </tr>
             <tr>
                 <td><label>ReleaseDate</label></td>
-                <td><input type="text" id="releaseDate" name="ReleaseDate"/></td>
+                <td><s:input type="text" id="releaseDate" path="ReleaseDate" name="ReleaseDate"/></td>
             </tr>
             <tr>
                 <td><label>Picture</label></td>
-                <td><input type="text" id="picture" name="Picture"/></td>
+                <td><s:input type="text" id="picture" path="Picture" name="Picture"/></td>
             </tr>
             <tr>
                 <td><label>Department</label></td>
@@ -91,9 +91,10 @@
             <tr>
                 <td></td>
                 <td>
-                    <div class="butn"><input id="add" class="button_ok" type="submit" value="Добавить"/></div>
+                    <div class="butn"><input id="add" class="button_ok" type="submit" value="Применить"/></div>
                 </td>
             </tr>
         </table>
-    </form>
+    </s:form>
 </div>
+

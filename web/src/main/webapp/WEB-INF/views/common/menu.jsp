@@ -30,10 +30,10 @@
             <li id="menu1" class="locale activeLocale"><a href="?locale=en"><spring:message code="menu.locale.en"/></a></li>
         </c:if>
         <c:if test="${user.getRoleEntity().getIdRole()==2}">
-            <li id="menu1"><a href=""><spring:message code="menu.locale.admin"/></a>
+            <li id="menu1"><a href="#"><spring:message code="menu.locale.admin"/></a>
                 <ul>
-                    <li><a href=''><spring:message code="menu.locale.users"/></a></li>
-                    <li><a href=''><spring:message code="menu.locale.products"/></a></li>
+                    <li><a href='<c:url value="/admin/users"/>'><spring:message code="menu.locale.users"/></a></li>
+                    <li><a href='<c:url value="/admin/products"/>'><spring:message code="menu.locale.products"/></a></li>
                 </ul>
             </li>
         </c:if>
