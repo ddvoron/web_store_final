@@ -13,16 +13,32 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Class implements functionality of Spring controller
+ * which is responsible for login service
+ *
+ * @author Dmitry V
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
     private static final int TIME_SESSION = 900;
     private static final String STATIC_SALT = ResourceBundle.getBundle("staticValue").getString("staticValue");
+    private static final String MESSAGE_CORRECTION = "Проверьте корректность ввода логина и пароля";
+    private static final String MESSAGE_BLACKLISTED = "Ваш профиль заблокирован за несоблюдение правил сайта, " +
+            "за дополнительной информацией обратитесь к администратору.";
 
     @Autowired
     private UserService service;
 
+    /**
+     * Method returns view with login form
+     *
+     * @param model
+     * @return view
+     */
     @RequestMapping(value = "/log", method = RequestMethod.GET)
     public String showLogForm(Map<String, Object> model) {
         UserEntity userForm = new UserEntity();
@@ -30,6 +46,13 @@ public class LoginController {
         return "log";
     }
 
+    /**
+     * Method authenticates the user
+     *
+     * @param user userEntity form data
+     * @param request
+     * @return view
+     */
     @RequestMapping(value = "/logIn", method = RequestMethod.POST)
     public String logIn(@ModelAttribute("userForm") UserEntity user,
                         HttpServletRequest request) {
@@ -38,11 +61,10 @@ public class LoginController {
             String salt = service.getByLogin(user.getLogin()).getSalt();
             String password1 = Sha256.sha256(user.getPassword() + salt + STATIC_SALT);
             if (service.get(user.getLogin(), password1) == null) {
-                request.setAttribute("message", "Проверьте корректность ввода логина и пароля");
+                request.setAttribute("message", MESSAGE_CORRECTION);
                 return "log";
             } else if (StringUtils.equals(service.get(user.getLogin(), password1).getBlackList(), "true")) {
-                request.setAttribute("message", "Ваш профиль заблокирован за несоблюдение правил сайта, " +
-                        "за дополнительной информацией обратитесь к администратору.");
+                request.setAttribute("message", MESSAGE_BLACKLISTED);
                 return "log";
             } else {
                 HttpSession session = request.getSession(true);
@@ -52,7 +74,7 @@ public class LoginController {
                 return "redirect:../";
             }
         } else {
-            request.setAttribute("message", "Проверьте корректность ввода логина и пароля");
+            request.setAttribute("message", MESSAGE_CORRECTION);
             return "log";
         }
     }

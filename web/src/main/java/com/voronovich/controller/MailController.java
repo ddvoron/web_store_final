@@ -15,25 +15,45 @@ import com.voronovich.mail.Sender;
 
 import java.util.ResourceBundle;
 
+/**
+ * Class implements functionality of Spring controller that provides mail service
+ *
+ * @author Dmitry V
+ * @version 1.0
+ */
 @Controller
 public class MailController {
+
+    private static final int LENGTH_RANDOM_NUMBER = 20;
+    private static final int LENGTH_RANDOM_PASSWORD = 7;
+    private static final String ADMIN_MAIL = ResourceBundle.getBundle("data").getString("mail");
+    private static final String ADMIN_PASSWORD = ResourceBundle.getBundle("data").getString("password");
+    private static final String MESSAGE_SUBJECT = "Восстановление пароля";
+    private static final String MESSAGE_SUCCESS = "Данные будут высланы в течении одной минуты на указанный E-mail...";
 
     @Autowired
     UserService service;
 
-    private static final String ADMIN_MAIL = ResourceBundle.getBundle("data").getString("mail");
-    private static final String ADMIN_PASSWORD = ResourceBundle.getBundle("data").getString("password");
-    private static final int LENGTH_RANDOM_NUMBER = 20;
-    private static final int LENGTH_RANDOM_PASSWORD = 7;
-    String clientMail;
     Sender sslSender = new Sender(ADMIN_MAIL, ADMIN_PASSWORD);
 
+    /**
+     * Method returns view with email form
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/mail", method = RequestMethod.GET)
     public String mailSender(ModelMap model) {
-        model.addAttribute("message", "Данные будут высланы в течении одной минуты на указанный E-mail...");
+        model.addAttribute("message", MESSAGE_SUCCESS);
         return "mail";
     }
 
+    /**
+     * Method sends mail with updated accounts data by users requests
+     *
+     * @param Email
+     * @return view
+     */
     @RequestMapping(value = "/mail", method = RequestMethod.POST)
     public String accountRecovery(@RequestParam String Email) {
         UserEntity userEntity = service.getByEmail(Email);
@@ -48,11 +68,10 @@ public class MailController {
         userEntity.setPassword(password1);
         userEntity.setSalt(salt);
         service.saveOrUpdate(userEntity);
-        String subject = "Восстановление пароля";
         String text = "Здравствуйте, " + userEntity.getName()
                 + "! Ваш Login: " + login + "; Password: "
                 + password + ".";
-        sslSender.send(subject, text, Email);
+        sslSender.send(MESSAGE_SUBJECT, text, Email);
         return "redirect:login/log";
     }
 }

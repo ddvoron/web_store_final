@@ -45,6 +45,15 @@ function addOrder(id, product) {
     }
 }
 
+function deleteOrder(id) {
+    $.ajax({
+        type: 'delete',
+        url: '/web/basket/orders/' + id
+    }).done(function (data) {
+                $('#order' + id).hide(500);
+        });
+}
+
 function addGoodForm() {
     $('.dominator').css({'display': 'block'});
     $('.megaDominator1').css({'display': 'block'});

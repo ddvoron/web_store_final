@@ -19,6 +19,12 @@ import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Class implements functionality of Spring Controller for registration
+ *
+ * @author Dmitry V
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -27,8 +33,10 @@ public class UserController {
     private static final int DEFAULT_ROLE_ID = 1;
     private static final int LENGTH_RANDOM_NUMBER = 20;
     private static final String BLOCK_VALUE = "false";
-    private static final String STATIC_SALT = ResourceBundle.getBundle("staticValue")
-            .getString("staticValue");
+    private static final String STATIC_SALT = ResourceBundle.getBundle("staticValue").getString("staticValue");
+    private static final String MESSAGE_REGISTRATION_FAIL = "Ошибка регистрации";
+    private static final String MESSAGE_DATA_CORRECTION = "Введите корректные данные";
+    private static final String MESSAGE_REGISTRATION_SUCCESS = "Регистрация прошла успешно";
 
     @Autowired
     private UserService service;
@@ -36,6 +44,12 @@ public class UserController {
     @Autowired
     private RoleService serviceRole;
 
+    /**
+     * Method is for preparing view for registration page
+     *
+     * @param model
+     * @return view
+     */
     @RequestMapping(value = "/reg", method = RequestMethod.GET)
     public String showRegForm(Map<String, Object> model) {
         UserEntity userForm = new UserEntity();
@@ -43,6 +57,16 @@ public class UserController {
         return "reg";
     }
 
+    /**
+     * Method adds new userEntity
+     *
+     * @param user -userEntity form
+     * @param result
+     * @param PasswordRepeat
+     * @param request
+     * @param Login
+     * @return  view
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute("userForm") UserEntity user,
                           BindingResult result,
@@ -50,24 +74,30 @@ public class UserController {
                           HttpServletRequest request,
                           @PathVariable String Login) {
         if (result.hasErrors()) {
-            request.setAttribute("message", "Ошибка регистрации");
+            request.setAttribute("message", MESSAGE_REGISTRATION_FAIL);
             return "reg";
         }
         if (!StringUtils.equals(user.getPassword(), PasswordRepeat)) {
-            request.setAttribute("message", "Ошибка регистрации");
+            request.setAttribute("message", MESSAGE_REGISTRATION_FAIL);
             return "reg";
         }
-        if(service.getByLogin(user.getLogin())!=null && service.getByEmail((user.getEmail()))!=null){
-            request.setAttribute("message", "Введите корректные данные" + Login);
+        if (service.getByLogin(user.getLogin()) != null && service.getByEmail((user.getEmail())) != null) {
+            request.setAttribute("message", MESSAGE_DATA_CORRECTION + Login);
             return "reg";
         }
-       fillModel(user);
-            service.saveOrUpdate(user);
-        request.setAttribute("message", "Регистрация прошла успешно");
+        fillModel(user);
+        service.saveOrUpdate(user);
+        request.setAttribute("message", MESSAGE_REGISTRATION_SUCCESS);
         return "redirect:../login/log";
     }
 
-    public UserEntity fillModel(UserEntity user){
+    /**
+     * Method prepares filled form of Entity
+     *
+     * @param user - UserEntity
+     * @return UserEntity
+     */
+    public UserEntity fillModel(UserEntity user) {
         String password = user.getPassword();
         String salt = RandomSalt.csRandomAlphaNumericString(LENGTH_RANDOM_NUMBER);
         String password1 = Sha256.sha256(password + salt + STATIC_SALT);

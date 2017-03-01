@@ -14,6 +14,13 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class implements functionality of Spring controller
+ * which is responsible for catalog service
+ *
+ * @author Dmitry V
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/catalog")
 public class CatalogMainController {
@@ -39,6 +46,15 @@ public class CatalogMainController {
     private static final String WASHERS = "washers";
     private static final String MOBILES = "mobiles";
 
+    /**
+     * Method returns view with selected product type
+     *
+     * @param page - page number
+     * @param size - number of elements on page
+     * @param products
+     * @param model
+     * @return view
+     */
     @RequestMapping(value = "/{products}", method = RequestMethod.GET)
     public String showFridges(@RequestParam(required = false, defaultValue = "1") int page,
                               @RequestParam(required = false, defaultValue = "3") int size,
@@ -94,6 +110,12 @@ public class CatalogMainController {
         return "catalog";
     }
 
+    /**
+     * Method adds users order to the shopping cart
+     *
+     * @param ID - product id
+     * @param request
+     */
     @RequestMapping(value = {"/fridges/{ID}","/televisions/{ID}","/washers/{ID}","/mobiles/{ID}"}, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void addOrder(@PathVariable int ID, HttpServletRequest request) {
@@ -101,8 +123,16 @@ public class CatalogMainController {
         serviceBasket.saveOrUpdate(basketEntity);
     }
 
+    /**
+     * Method redirects user to the page with
+     * product description
+     *
+     * @param ID - product id
+     * @param model
+     * @return view
+     */
     @RequestMapping(value = {"fridges/{ID}","televisions/{ID}","washers/{ID}","mobiles/{ID}"}, method = RequestMethod.GET)
-    public String showFridge(@PathVariable int ID, ModelMap model) {
+    public String showDescription(@PathVariable int ID, ModelMap model) {
         DataEntity dataEntity = serviceData.get(ID);
         List<DescriptionEntity> list = serviceDescription.getAllDescriptionsByData(dataEntity);
         String productName = null;

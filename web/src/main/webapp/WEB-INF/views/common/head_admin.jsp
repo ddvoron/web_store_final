@@ -4,11 +4,9 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<meta charset="utf-8">
 
 
+    <meta charset="utf-8">
 <link rel="stylesheet" media="all" href="<c:url value="/resources/css/Style-menu.css"/>"/>
 <link rel="stylesheet" media="all" href="<c:url value="/resources/css/Style.css"/>"/>
 <link rel="stylesheet" media="all" href="<c:url value="/resources/css/StyleReg.css"/>"/>

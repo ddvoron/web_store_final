@@ -5,7 +5,6 @@ import com.voronovich.entity.UserEntity;
 import com.voronovich.service.CatalogService;
 import com.voronovich.service.DataService;
 import com.voronovich.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,14 +14,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class implements functionality of Spring controller
+ * which is responsible for operations with admin account
+ *
+ * @author Dmitry V
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    private static final String MESSAGE_FORBIDDEN = "Вы не авторизированы либо не обладаете правами администратора";
 
     @Autowired
     private DataService serviceData;
@@ -33,6 +40,15 @@ public class AdminController {
     @Autowired
     UserService serviceUser;
 
+    /**
+     * Method returns view with products list
+     *
+     * @param page - page number
+     * @param size - elements number per page
+     * @param request
+     * @param model
+     * @return view
+     */
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String showProducts(@RequestParam(required = false, defaultValue = "1") int page,
                                @RequestParam(required = false, defaultValue = "10") int size,
@@ -58,26 +74,39 @@ public class AdminController {
             model.addAttribute("currentPage", page);
             return "products";
         } else {
-            model.addAttribute("message", "Вы не авторизированы либо не обладаете правами администратора");
+            model.addAttribute("message", MESSAGE_FORBIDDEN);
             return "redirect:../";
         }
     }
 
+    /**
+     * Method returns view with users list
+     *
+     * @param request
+     * @param model
+     * @return view
+     */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String showProducts(HttpServletRequest request, ModelMap model) {
         UserEntity userEntity = (UserEntity) request.getSession(true).getAttribute("user");
         if (userEntity != null && userEntity.getRoleEntity().getIdRole() == 2) {
-
             List<UserEntity> allUsers = serviceUser.getAllUsers();
             model.addAttribute("user", new UserEntity());
             model.addAttribute("users", allUsers);
             return "users";
         } else {
-            model.addAttribute("message", "Вы не авторизированы либо не обладаете правами администратора");
+            model.addAttribute("message", MESSAGE_FORBIDDEN);
             return "redirect:../";
         }
     }
 
+    /**
+     * Method adds or updates product
+     *
+     * @param dataEntity - product
+     * @param request
+     * @return view
+     */
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public String addOrUpdateProduct(@ModelAttribute("product") DataEntity dataEntity,
                              HttpServletRequest request) {
@@ -97,6 +126,12 @@ public class AdminController {
         return "redirect: products";
     }
 
+    /**
+     * Method updates user
+     *
+     * @param userEntity - user
+     * @return view
+     */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String updateProduct(@ModelAttribute("user") UserEntity userEntity) {
         UserEntity user = serviceUser.get(userEntity.getIdUser());
