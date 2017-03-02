@@ -15,12 +15,16 @@ SOFT: jdk 1.8
       cglib 3.2.4
       tiles 3.0.5
       
-DataBase connection:
+DataBase connection (Mysql mariaDB):
       url - jdbc:mysql://localhost:2016/webstore_hib
       user - root
       password - 
       
-Вход в приложение: 
+Вход в приложение админ:
       Login - superman
       Password - superman
-      
+
+TODO - хранить добавленные товары в сессии без авторизации, перенос в корзину после аутентификации
+TODO - уменьшить объем передаваемой информации - use JSON
+TODO - коррекция верстки admin/users menu
+TODO - перенос на @REST CONTROLLER максимально
