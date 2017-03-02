@@ -64,15 +64,13 @@ public class UserController {
      * @param result
      * @param PasswordRepeat
      * @param request
-     * @param Login
      * @return  view
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute("userForm") UserEntity user,
                           BindingResult result,
                           @RequestParam String PasswordRepeat,
-                          HttpServletRequest request,
-                          @PathVariable String Login) {
+                          HttpServletRequest request) {
         if (result.hasErrors()) {
             request.setAttribute("message", MESSAGE_REGISTRATION_FAIL);
             return "reg";
@@ -82,7 +80,7 @@ public class UserController {
             return "reg";
         }
         if (service.getByLogin(user.getLogin()) != null && service.getByEmail((user.getEmail())) != null) {
-            request.setAttribute("message", MESSAGE_DATA_CORRECTION + Login);
+            request.setAttribute("message", MESSAGE_DATA_CORRECTION);
             return "reg";
         }
         fillModel(user);

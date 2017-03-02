@@ -19,7 +19,7 @@ import java.util.List;
 @ContextConfiguration("/beans-services.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-@Rollback(true)
+@Rollback
 public class DataServiceImplTest {
 
     private Date date = new Date();
