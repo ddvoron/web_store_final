@@ -11,6 +11,7 @@ function addOrder(id, product) {
         $.post('/web/catalog/' + product + '/' + id, {ID: id}
         ).done(function (data) {
             $('#order' + id).html('Добавлено');
+            $('#order').html('Добавлено');
         }).fail(function (data) {
             document.getElementById("mes" + id).style.visibility = "visible";
             setTimeout("hideElement(" + id + ")", 1500);
@@ -20,6 +21,7 @@ function addOrder(id, product) {
         $.post('/web/catalog/' + product + '/' + id, {ID: id}
         ).done(function (data) {
             $('#order' + id).html('Добавлено');
+            $('#order').html('Добавлено');
         }).fail(function (data) {
             document.getElementById("mes" + id).style.visibility = "visible";
             setTimeout("hideElement(" + id + ")", 1500);
@@ -29,6 +31,7 @@ function addOrder(id, product) {
         $.post('/web/catalog/' + product + '/' + id, {ID: id}
         ).done(function (data) {
             $('#order' + id).html('Добавлено');
+            $('#order').html('Добавлено');
         }).fail(function (data) {
             document.getElementById("mes" + id).style.visibility = "visible";
             setTimeout("hideElement(" + id + ")", 1500);
@@ -38,6 +41,7 @@ function addOrder(id, product) {
         $.post('/web/catalog/' + product + '/' + id, {ID: id}
         ).done(function (data) {
             $('#order' + id).html('Добавлено');
+            $('#order').html('Добавлено');
         }).fail(function (data) {
             document.getElementById("mes" + id).style.visibility = "visible";
             setTimeout("hideElement(" + id + ")", 1500);
